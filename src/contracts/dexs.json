@@ -1,0 +1,53 @@
+{
+    "chains": [
+      {
+        "name": "ZKSync",
+        "id": "zksync",
+        "tokens": [
+          {
+            "symbol": "USDC",
+            "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+          },
+          {
+            "symbol": "USDT",
+            "address": "0xdac17f958d2ee523a2206206994597c13d831ec7"
+          },
+          {
+            "symbol": "WETH",
+            "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+          },
+          {
+            "symbol": "DAI",
+            "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F"
+          }
+        ],
+        "dexes": [
+          {
+            "name": "Mute",
+            "factory": "0x8B791913eB07C32779a16750e3868aA8495F5964",
+            "router": "0x8B791913eB07C32779a16750e3868aA8495F5964",
+            "variant": "",
+            "pools": [
+                {
+                    "name": "weth/usdc",
+                    "address": "0xDFAaB828f5F515E104BaaBa4d8D554DA9096f0e4"
+                }
+            ]
+          },
+          {
+            "name": "SyncSwap",
+            "factory": "0xf2DAd89f2788a8CD54625C60b55cD3d2D0ACa7Cb",
+            "router": "0x2da10A1e27bF85cEdD8FFb1AbBe97e53391C0295",
+            "variant": "UniswapV2",
+            "pools": [
+                {
+                    "name": "weth/usdc",
+                    "address": "0x80115c708E12eDd42E504c1cD52Aea96C547c05c"
+                }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
