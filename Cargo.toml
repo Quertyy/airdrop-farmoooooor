@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 clap = {version = "4.3.11", features = ["derive"]}
 clippy = "0.0.302"
+dialoguer = "0.10.4"
 dotenv = "0.15.0"
 ethers = {version = "2.0.8", features = ["abigen", "ws"]}
 eyre = "0.6.8"
