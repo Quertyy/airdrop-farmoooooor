@@ -1,4 +1,5 @@
 use std::str::FromStr;
+use std::fmt::{Display, Formatter, Result as FmtResult};
 use ethers::prelude::*;
 
 use crate::prelude::pool::{Pool, PoolVariant};
@@ -48,5 +49,11 @@ impl Dex {
             pool_variant,
             pools: dex.pools.iter().map(|pool| Pool::from_json(pool)).collect(),
         }
+    }
+}
+
+impl Display for Dex {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        write!(f, "{}", self.name)
     }
 }
