@@ -41,29 +41,10 @@ pub struct JsonPool {
     pub address: String,
 }
 
-pub fn get_dex(chain_name: &str, factory_address: &str) -> Option<Dex> {
-    let file_data: FileData = serde_json::from_str(&fs::read_to_string("src/contracts/dexes.json").unwrap()).unwrap();
-    for chain in file_data.chains {
-        if chain.name.to_lowercase() != chain_name.to_lowercase() {
-            continue;
-        }
-        for dex in &chain.dexes {
-            if dex.factory.to_lowercase() == factory_address.to_lowercase() {
-                match Chain::from_str(&chain.name.to_lowercase()) {
-                    Ok(chain) => {
-                        return Some(Dex::from_json(chain, &dex));
-                    }
-                    Err(_) => {
-                        eprintln!("Error: Could not parse chain name '{}'", chain.name);
-                        return None;
-                    }
-                }
-            }
-        }
-    }
-    None
+pub fn get_all_chains() -> Vec<Chain> {
+    let file_data: FileData = serde_json::from_str(&fs::read_to_string("src/contracts/dexs.json").unwrap()).unwrap();
+    file_data.chains.iter().map(|chain| Chain::from_str(&chain.name.to_lowercase()).unwrap()).collect()
 }
-
 
 pub fn get_all_dexes(chain: &str) -> Option<Vec<Dex>> {
     let file_data: FileData = serde_json::from_str(&fs::read_to_string("src/contracts/dexs.json").unwrap()).unwrap();
