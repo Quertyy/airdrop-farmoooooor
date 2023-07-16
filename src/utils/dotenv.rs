@@ -1,4 +1,5 @@
 use ethers::prelude::{k256::ecdsa::SigningKey, *};
+use std::str::FromStr;
 
 pub fn read_env_vars() -> Vec<(String, String)> {
     let mut env_vars = Vec::new();
@@ -17,10 +18,22 @@ pub fn read_env_vars() -> Vec<(String, String)> {
     env_vars
 }
 
+pub fn get_all_wallets() -> Vec<LocalWallet> {
+    let env_vars = read_env_vars();
+    let mut wallets = Vec::new();
+    for (key, value) in env_vars {
+        if key.starts_with("PRIVATE_KEY_") {
+            let wallet = LocalWallet::from_str(&value).unwrap();
+            wallets.push(wallet);
+        }
+    }
+    wallets
+}
+
 pub async fn get_ws_provider() -> Provider<Ws> {
     let env_var = "RPC_URL_WS";
     let url = 
-        dotenv::var(&env_var).expect(format!("{} not found in .env file", env_var).as_str());
+        dotenv::var(env_var).expect(format!("{} not found in .env file", env_var).as_str());
     Provider::<Ws>::connect(&url)
         .await
         .expect("Could not connect to RPC")
@@ -29,7 +42,7 @@ pub async fn get_ws_provider() -> Provider<Ws> {
 pub async fn get_http_provider() -> Provider<Http> {
     let env_var = "RPC_URL_HTTP";
     let url = 
-        dotenv::var(&env_var).expect(format!("{} not found in .env file", env_var).as_str());
+        dotenv::var(env_var).expect(format!("{} not found in .env file", env_var).as_str());
     Provider::<Http>::try_from(url)
         .expect("Could not connect to RPC")
 }
